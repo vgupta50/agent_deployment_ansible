@@ -1,5 +1,4 @@
 # linux-64-bit-provisioning
-# note: https://github.com/ansible/ansible/issues/51941
 #
 # VARIABLES EXPECTED @ RUNTIME:
 #    - ec2 (desired instance name)
