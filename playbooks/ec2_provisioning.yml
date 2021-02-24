@@ -1,0 +1,33 @@
+---
+# nginx-provisioning
+# this is meant to be run from the jumpbox
+# note: https://github.com/ansible/ansible/issues/51941
+#
+# VARIABLES EXPECTED @ RUNTIME:
+#    - ec2 (desired instance name)
+
+- hosts: localhost
+  tasks:
+    - name: Create ec2 instance from launch template
+      ec2_instance:
+        name: "{{ ec2_host }}"
+        state: running
+        vpc_subnet_id: subnet-0096d58f7a970cedb
+        instance_type: t2.micro
+        termination_protection: no
+        launch_template:
+          id: lt-04eee55f795e1c15a
+        region: us-east-1
+        wait: yes
+      register: ec2_results
+
+    - name: Add new webserver to in-memory inventory
+      add_host:
+        name: "{{ ec2_results.instances[0].private_ip_address }}"
+        groups: webservers
+        ansible_ssh_private_key_file: "/home/ubuntu/.ssh/ansible.pem"
+        ansible_user: "ubuntu"
+
+
+#- import_playbook: nginx-configure.yml
+
