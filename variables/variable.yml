@@ -2,10 +2,11 @@ ec2_region: us-east-1
 ec2_keypair: qa_key_pair
 ec2_tag_Type: test
 ec2_volume_size: 8
-ec2_count: 2
+ec2_count: 1
 ec2_instance_type: t2.micro
 ec2_security_group_id: sg-01223190e5a1dacbc
 ec2_subnet_id: subnet-0096d58f7a970cedb
-ec2_tag_Role: arn:aws:iam::068413915554:role/SSMInstanceProfile
-ec2_image: ami-0915bcb5fa77e4892
-ec_host_name: instance_created
+ec2_tag_Role: arn:aws:iam::068413915554:role/ec2_full_access
+ec2_image: ami-013f17f36f8b1fefb
+ec2_host_name: instance_created
+iam_role: ec2_full_access
