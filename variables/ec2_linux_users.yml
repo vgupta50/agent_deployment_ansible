@@ -3,4 +3,6 @@ aws_ec2_linux_users:
   centos: centos
   debian: admin
   ubuntu: ubuntu
-artifact_build_no: 87697
+artifact_build_no: 92466
+platform: Linux64
+agent_platform: linux64

@@ -1,7 +1,7 @@
 [ec2hosts]
 
 [linux]
-10.0.1.234 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=../key_pair/qa_key_pair.pem
+10.0.1.234 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/github_repo_ansible/key_pair/qa_key_pair.pem
 
 
 [windows]

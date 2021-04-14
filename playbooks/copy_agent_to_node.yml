@@ -1,11 +1,14 @@
-- name: copying the agent on remote node
-      copy:
-        host: [linux]
-        src: /agent/linux_agent.exe 
-        dest: /
-        force: no
-        owner: root
-        mode: 0777
-      become: true
-      register: copy_output
-    -debug: var = copy_output
+- name: copy the agent on remote node
+  pre_tasks:
+    - include_vars: ../variables/ec2_linux_users.yml
+  hosts: linux
+  tasks:
+  - name: copying agent to remote node
+    copy:
+      src: /agent/rts.{{ agent_platform }}.exe 
+      dest: /
+      force: no
+      owner: root
+      mode: 0777
+    become: true
+    register: copy_output
