@@ -9,7 +9,7 @@ ec2_tag_Role: arn:aws:iam::068413915554:role/ec2_full_access
 ec2_image: ami-013f17f36f8b1fefb
 iam_role: ec2_full_access
 hostpath: "../inventory/static_hosts"
-hoststring: "ansible_ssh_private_key_file=../key_pair/qa_key_pair.pem"
+hoststring: "ansible_ssh_private_key_file=/github_repo_ansible/key_pair/qa_key_pair.pem"
 os_type: linux
 ec2_tag_Role: 
 ec2_user: ubuntu

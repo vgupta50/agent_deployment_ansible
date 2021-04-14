@@ -1,5 +1,4 @@
-- hosts: /inventory/static_hosts
-  connection: local
+- hosts: localhost
   gather_facts: False
   pre_tasks:
     - include_vars: ../variables/ec2_linux_users.yml
@@ -7,4 +6,4 @@
   tasks:
     - name: download custom artifact from s3
       shell:
-        "aws s3 cp s3://ci-build-artifacts/Infocyte/Infocyte_RtsLinux32/{{artifact_build_no}}/rts.linux32.exe /agent  --profile profilename"
+        "aws s3 cp s3://ci-build-artifacts/Infocyte/Infocyte_Rts{{ platform }}/{{artifact_build_no}}/rts.{{ agent_platform }}.exe /agent  --profile profilename"

@@ -1,0 +1,6 @@
+- name: offline survey colelction 0f agent
+  hosts: linux
+  tasks:
+  - name: offline survey payload
+    command : ./
+    
