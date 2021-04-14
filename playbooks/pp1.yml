@@ -1,0 +1,14 @@
+- name: adding hosts
+  hosts: localhost
+  gather_facts: False
+  pre_tasks:
+    - include_vars: ../variables/variable.yml
+    - include_vars: ../variables/ec2_linux_users.yml
+
+  tasks:
+    - name: Add the newly created linux EC2 instance(s) to a static inventory file
+      lineinfile: dest={{ hostpath }}
+                  insertafter="windows" 
+                  line="1.2.3.5 ansible_ssh_user={{ aws_ec2_linux_users[ ec2_user ] }} {{ hoststring }}"
+      with_items: "1.2.3.5"
+
