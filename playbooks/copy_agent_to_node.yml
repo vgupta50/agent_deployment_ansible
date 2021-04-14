@@ -1,0 +1,11 @@
+- name: copying the agent on remote node
+      copy:
+        host: [linux]
+        src: /agent/linux_agent.exe 
+        dest: /
+        force: no
+        owner: root
+        mode: 0777
+      become: true
+      register: copy_output
+    -debug: var = copy_output

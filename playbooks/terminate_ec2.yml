@@ -1,0 +1,37 @@
+---
+### terminate ec2 instance
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  pre_tasks:
+    - include_vars: ../variables/variable.yml
+    - include_vars: ../variables/ec2_linux_users.yml
+     
+  tasks:
+    - name: terminate ec2 instances
+      local_action:
+        module: ec2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

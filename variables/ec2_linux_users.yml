@@ -1,0 +1,6 @@
+aws_ec2_linux_users:
+  amazon_linux, fedora, rhel, suse: ec2_user
+  centos: centos
+  debian: admin
+  ubuntu: ubuntu
+artifact_build_no: 87697

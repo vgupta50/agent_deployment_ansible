@@ -1,0 +1,44 @@
+---
+### Provision ec2 instance
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  pre_tasks:
+    - include_vars: ../variables/variable.yml
+    - include_vars: ../variables/ec2_linux_users.yml
+     
+  tasks:
+    - name: Provision ec2 instances
+      local_action:
+        module: ec2
+        key_name: "{{ ec2_keypair }}"
+        group_id: "{{ ec2_security_group_id }}"
+        instance_type: "{{ ec2_instance_type }}"
+        image: "{{ ec2_image }}"
+        vpc_subnet_id: "{{ ec2_subnet_id }}"
+        region: "{{ ec2_region }}"
+        assign_public_ip: yes
+        instance_profile_name: "{{iam_role}}"
+        wait: true
+        count: "{{ec2_count}}"
+      register: ec2
+
+    - name: Add all instance public IPs to host group
+      add_host: hostname={{ item.public_ip }} groups=ec2hosts
+      loop: "{{ ec2.instances }}"
+
+    - name: Wait for SSH to come up for linux ec2 instances
+      local_action: wait_for 
+                    host={{ item.public_ip }} 
+                    port=22 
+                    state=started
+      with_items: "{{ ec2.instances }}"
+      when: os_type == "linux"
+
+    - name: Add the newly created linux EC2 instance(s) to a static inventory file
+      lineinfile: dest={{ hostpath }}
+                  regexp={{ item.private_ip }} 
+                  insertafter="{{ os_type }}" 
+                  line="{{ item.private_ip }} ansible_ssh_user={{ aws_ec2_linux_users[ ec2_user ] }} {{ hoststring }}"
+                  state=present
+      with_items: "{{ ec2.instances }}"
